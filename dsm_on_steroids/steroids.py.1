@@ -1,0 +1,94 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from osgeo import ogr, osr
+import os
+import sys
+
+ogr.UseExceptions()
+
+BUILDINGS = "buildings.shp"
+BASEPATH = "/opt/Geodaten/ch/so/kva/hoehen/2014/"
+OUTPATH = "/home/stefan/tmp/steroids/"
+
+
+# export buildings et cetera from database
+
+cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -f GPKG -overwrite -nln 'gebaeude' " + BUILDINGS 
+cmd += " PG:\"dbname='xanadu2' host='localhost' port='5432' user='mspublic' password='mspublic'\"" 
+cmd += " -sql \"SELECT ogc_fid, art, ST_Buffer(geometrie, 1) FROM av_mopublic.bodenbedeckung__boflaeche WHERE art = 'Gebaeude'\""
+#os.system(cmd)
+
+cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -f GPKG -append -nln 'gebaeude' " + BUILDINGS
+cmd += " PG:\"dbname='xanadu2' host='localhost' port='5432' user='mspublic' password='mspublic'\"" 
+cmd += " -sql \"SELECT ogc_fid, typ as art, ST_Buffer(geometrie, 1) FROM av_mopublic.einzelobjekte__flaechenelement WHERE typ IN ('Unterstand','uebriger_Gebaeudeteil','Silo_Turm_Gasometer','Hochkamin')\"" 
+#os.system(cmd)
+
+
+# the loop...
+
+shp = ogr.Open("tileindex/lidar2014_einzeln.shp")
+layer = shp.GetLayer(0)
+
+
+for feature in layer:
+    infileName = feature.GetField('location')
+    print "**********************: " + infileName
+    
+    geom = feature.GetGeometryRef()
+    env = geom.GetEnvelope()
+
+    minX = str(int(env[0] + 0.001))
+    minY = str(int(env[2] + 0.001))
+    maxX = str(int(env[1] + 0.001))
+    maxY = str(int(env[3] + 0.001))
+    
+    # export buildings et cetera from database
+    polygon = "ST_PolygonFromText('POLYGON(("+minX+" " +minY+","+maxX+" "+minY+","+maxX+" "+maxY+","+minX+" "+maxY+","+minX+" "+minY+"))',21781)"
+    
+    cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -overwrite " + BUILDINGS
+    cmd +=" PG:\"dbname='xanadu2' host='localhost' port='5432' user='mspublic' password='mspublic'\"" 
+    cmd += " -sql \"SELECT ogc_fid, art, ST_Buffer(geometrie, 1) FROM av_mopublic.bodenbedeckung__boflaeche"
+    cmd += " WHERE geometrie && " + polygon 
+    cmd += " AND ST_Intersects(geometrie, " + polygon + ")"
+    cmd += " AND art = 'Gebaeude'\""
+    os.system(cmd)
+
+    cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -append " + BUILDINGS
+    cmd +=" PG:\"dbname='xanadu2' host='localhost' port='5432' user='mspublic' password='mspublic'\"" 
+    cmd += " -sql \"SELECT ogc_fid, typ as art, ST_Buffer(geometrie, 1) FROM av_mopublic.einzelobjekte__flaechenelement"
+    cmd += " WHERE geometrie && " + polygon 
+    cmd += " AND ST_Intersects(geometrie, " + polygon + ")"
+    cmd += " AND typ IN ('Unterstand','uebriger_Gebaeudeteil','Silo_Turm_Gasometer','Hochkamin')"
+    cmd += " AND geometrie IS NOT NULL\""
+    os.system(cmd)
+
+
+    # difference: dom - dtm
+    infileA = os.path.join(BASEPATH, "dom", infileName)
+    infileB = os.path.join(BASEPATH, "dtm", infileName)
+    outfile = os.path.join(OUTPATH, "diff_dom_dtm", "diff_" + infileName)
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdal_calc.py -A " + infileA 
+    cmd += " -B " + infileB + " --outfile " + outfile + " --calc=\"A-B\""
+    cmd += " --NoDataValue=-99 --co 'TILED=YES' --co 'PROFILE=GeoTIFF'"
+    cmd += " --co 'INTERLEAVE=PIXEL' --co 'COMPRESS=DEFLATE'" 
+    cmd += " --co 'BLOCKXSIZE=512' --co 'BLOCKYSIZE=512'"
+    #os.system(cmd)
+    
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest "
+    cmd += "--config COMPRESS_OVERVIEW DEFLATE --config GDAL_TIFF_OVR_BLOCKSIZE 512 " 
+    cmd += outfile + " 2 4 8 16 32 64 128"
+    #os.system(cmd)
+    
+    # get only raster within buildings
+    infile = outfile
+    outfile = os.path.join(OUTPATH, "diff_dom_dtm_gebaeude", "geb_diff_" + infileName)
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -s_srs epsg:21781 -t_srs epsg:21781 "
+    cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF' -co 'INTERLEAVE=PIXEL'"
+    cmd += " -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
+    cmd += " -cutline " + BUILDINGS + " " + infile + " " + outfile
+    print cmd
+    os.system(cmd)
+
+
+

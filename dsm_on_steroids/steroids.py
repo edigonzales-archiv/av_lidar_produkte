@@ -10,7 +10,9 @@ ogr.UseExceptions()
 BUILDINGS = "buildings.shp"
 BUFFER_DISTANCE = "2"
 BASEPATH = "/opt/Geodaten/ch/so/kva/hoehen/2014/"
-NDVIPATH = "/opt/Geodaten/ch/so/kva/orthofoto/2014/ndvi/12_5cm/"
+NDVIPATH_2014 = "/opt/Geodaten/ch/so/kva/orthofoto/2014/ndvi/12_5cm/"
+NDVIPATH_2013 = "/opt/Geodaten/ch/so/kva/orthofoto/2013/ndvi/12_5cm/"
+NDVIPATH_2012 = "/opt/Geodaten/ch/so/kva/orthofoto/2012/ndvi/12_5cm/"
 OUTPATH = "/home/stefan/tmp/steroids/"
 
 # the loop...
@@ -31,7 +33,7 @@ for feature in layer:
     maxX = str(int(env[1] + 0.001))
     maxY = str(int(env[3] + 0.001))
     
-    # difference: dom - dtm = nDSM
+    # nDSM = DSM - DTM
     infileA = os.path.join(BASEPATH, "dom", infileName)
     infileB = os.path.join(BASEPATH, "dtm", infileName)
     outfile = os.path.join(OUTPATH, "diff_dom_dtm", "diff_" + infileName)
@@ -47,24 +49,7 @@ for feature in layer:
     cmd += outfile + " 2 4 8 16 32 64 128"
     #os.system(cmd)
     
-    
-    
-    # doch erst am schluss?!
-    # NDVI
-    infile = os.path.join(NDVIPATH, infileName[0:6] + "_12_5cm.tif")
-    outfile = os.path.join(OUTPATH, "ndvi", infileName[0:6] + "_50cm.tif")
-    cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -s_srs epsg:21781 -t_srs epsg:21781 "
-    cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF' -co 'INTERLEAVE=PIXEL'"
-    cmd += " -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
-    cmd += " -tr 0.5 0.5 " + infile + " " + outfile
-    print cmd
-    print infile
-    print outfile
-    os.system(cmd)
-    
-    
-    
-    
+
     
     # export buildings and single objects from database
     polygon = "ST_PolygonFromText('POLYGON(("+minX+" " +minY+","+maxX+" "+minY+","+maxX+" "+maxY+","+minX+" "+maxY+","+minX+" "+minY+"))',21781)"
@@ -107,6 +92,30 @@ for feature in layer:
     #os.system(cmd)
 
     
+    # NDVI 2014 - 2012
+    infile = os.path.join(NDVIPATH_2014, infileName[0:6] + "_12_5cm.tif")
+    outfile = os.path.join(OUTPATH, "ndvi", infileName[0:6] + "_50cm.tif")
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -s_srs epsg:21781 -t_srs epsg:21781 "
+    cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF' -co 'INTERLEAVE=PIXEL'"
+    cmd += " -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
+    cmd += " -tr 0.5 0.5 " + infile + " " + outfile
+    #os.system(cmd)
+    
+    infile = os.path.join(NDVIPATH_2013, infileName[0:6] + "_12_5cm.tif")
+    outfile = os.path.join(OUTPATH, "ndvi", infileName[0:6] + "_50cm.tif")
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -s_srs epsg:21781 -t_srs epsg:21781 "
+    cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF' -co 'INTERLEAVE=PIXEL'"
+    cmd += " -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
+    cmd += " -tr 0.5 0.5 " + infile + " " + outfile
+    #os.system(cmd)
+
+    infile = os.path.join(NDVIPATH_2012, infileName[0:6] + "_12_5cm.tif")
+    outfile = os.path.join(OUTPATH, "ndvi", infileName[0:6] + "_50cm.tif")
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -s_srs epsg:21781 -t_srs epsg:21781 "
+    cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF' -co 'INTERLEAVE=PIXEL'"
+    cmd += " -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
+    cmd += " -tr 0.5 0.5 " + infile + " " + outfile
+    #os.system(cmd)
 
 
-
+#/usr/local/gdal/gdal-dev/bin/gdal_calc.py -A diff_603231_50cm.tif --outfile=wald_dom_3.tif --calc="(A<=1)*0 + (A>1)*A"
