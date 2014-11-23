@@ -10,7 +10,7 @@ ogr.UseExceptions()
 BASEPATH = "/opt/Geodaten/ch/so/kva/hoehen/2014/"
 OUTPATH = "/home/stefan/tmp/ndsm/"
 
-shp = ogr.Open("tileindex/lidar2014_einzeln.shp")
+shp = ogr.Open("../tileindex/lidar2014_einzeln.shp")
 layer = shp.GetLayer(0)
 
 
@@ -36,9 +36,28 @@ for feature in layer:
     cmd += " --NoDataValue=-99 --co 'TILED=YES' --co 'PROFILE=GeoTIFF'"
     cmd += " --co 'INTERLEAVE=PIXEL' --co 'COMPRESS=DEFLATE'" 
     cmd += " --co 'BLOCKXSIZE=512' --co 'BLOCKYSIZE=512'"
-    os.system(cmd)
+    #os.system(cmd)
 
     cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest "
     cmd += "--config COMPRESS_OVERVIEW DEFLATE --config GDAL_TIFF_OVR_BLOCKSIZE 512 " 
     cmd += outfile + " 2 4 8 16 32 64 128"
-    os.system(cmd)
+    #os.system(cmd)
+
+infiles = os.path.join(OUTPATH, "*.tif")
+outfile = os.path.join(OUTPATH, "ndsm.vrt")
+cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
+os.system(cmd)
+
+infile = os.path.join(OUTPATH, "ndsm.vrt")
+outfile = os.path.join(OUTPATH, "ndsm_5m.tif")
+cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -tr 5.0 5.0 -of GTiff"
+cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
+cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
+cmd += " -wo NUM_THREADS=ALL_CPUS -s_srs epsg:21781 -t_srs epsg:21781"
+cmd += " " + infile + " " + outfile
+os.system(cmd)
+
+cmd  = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest"
+cmd += " --config COMPRESS_OVERVIEW LZW --config GDAL_TIFF_OVR_BLOCKSIZE 512"
+cmd += " " + outfile + " 2 4 8 16 32 64 128"
+os.system(cmd)

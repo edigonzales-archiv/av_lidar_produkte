@@ -7,12 +7,12 @@ import sys
 
 ogr.UseExceptions()
 
-VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dtm/dtm.vrt"
-OUTPATH = "/home/stefan/tmp/hillshade/dtm/"
+VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dom/dom.vrt"
+OUTPATH = "/home/stefan/tmp/hillshade/dom/"
 TMPPATH = "/tmp/"
 BUFFER = 10
 
-shp = ogr.Open("../tileindex/lidar2014_einzeln.shp")
+shp = ogr.Open("tileindex/lidar2014_einzeln.shp")
 layer = shp.GetLayer(0)
 
 
@@ -34,13 +34,13 @@ for feature in layer:
     cmd += " -tr 0.5 0.5 -wo NUM_THREADS=ALL_CPUS -co 'TILED=YES' -co 'PROFILE=GeoTIFF'"
     cmd += " -co 'INTERLEAVE=PIXEL' -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
     cmd += " -r bilinear " + VRT + " " + outfileName
-    os.system(cmd)
+    #os.system(cmd)
     #print cmd
 
     infile = outfileName
     outfile = os.path.join(TMPPATH, "tmp_" + infileName)
-    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 50 -az 270 -compute_edges " + infile + " " + outfile
-    os.system(cmd)
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 65 -compute_edges " + infile + " " + outfile
+    #os.system(cmd)
     #print cmd
     
     infile = outfile
@@ -49,32 +49,10 @@ for feature in layer:
     cmd += " -tr 0.5 0.5 -wo NUM_THREADS=ALL_CPUS -co 'TILED=YES' -co 'PROFILE=GeoTIFF'"
     cmd += " -co 'INTERLEAVE=PIXEL' -co 'COMPRESS=DEFLATE' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'"
     cmd += " -r bilinear " + infile + " " + outfile
-    os.system(cmd)
+    #os.system(cmd)
     #print cmd
 
     cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest "
     cmd += "--config COMPRESS_OVERVIEW DEFLATE --config GDAL_TIFF_OVR_BLOCKSIZE 512 " 
     cmd += outfile + " 2 4 8 16 32 64 128"
     os.system(cmd)
-
-infiles = os.path.join(OUTPATH, "*.tif")
-outfile = os.path.join(OUTPATH, "dtm_relief.vrt")
-cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
-os.system(cmd)
-
-infile = os.path.join(OUTPATH, "dtm_relief.vrt")
-outfile = os.path.join(OUTPATH, "dtm_relief_5m.tif")
-cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -tr 5.0 5.0 -of GTiff"
-cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
-cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
-cmd += " -wo NUM_THREADS=ALL_CPUS -s_srs epsg:21781 -t_srs epsg:21781"
-cmd += " " + infile + " " + outfile
-os.system(cmd)
-
-cmd  = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest"
-cmd += " --config COMPRESS_OVERVIEW LZW --config GDAL_TIFF_OVR_BLOCKSIZE 512"
-cmd += " " + outfile + " 2 4 8 16 32 64 128"
-os.system(cmd)
-
-
-
