@@ -89,15 +89,15 @@ for feature in layer:
     outfile = os.path.join(OUT_PATH, "buildings", "hillshade", infileName)
     
     cmd = "/usr/local/gdal/gdal-dev/bin/gdal_edit.py -a_nodata 0 " + infile
-    os.system(cmd)
+    #os.system(cmd)
     
     cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 60 -az 270 -compute_edges " + infile + " " + outfile
-    os.system(cmd)
+    #os.system(cmd)
 
     cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest "
     cmd += "--config COMPRESS_OVERVIEW DEFLATE --config GDAL_TIFF_OVR_BLOCKSIZE 512 " 
     cmd += outfile + " 2 4 8 16 32 64 128"
-    os.system(cmd)
+    #os.system(cmd)
     
     
     ## Forest
@@ -124,12 +124,12 @@ for feature in layer:
     infile = os.path.join(OUT_PATH, "forest", "dom", infileName)
     outfile = os.path.join(OUT_PATH, "forest", "hillshade", infileName)
     cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 60 -az 270 -compute_edges " + infile + " " + outfile
-    os.system(cmd)
+    #os.system(cmd)
 
     cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest "
     cmd += "--config COMPRESS_OVERVIEW DEFLATE --config GDAL_TIFF_OVR_BLOCKSIZE 512 " 
     cmd += outfile + " 2 4 8 16 32 64 128"
-    os.system(cmd)
+    #os.system(cmd)
 
     
 #/usr/local/gdal/gdal-dev/bin/gdal_calc.py -A diff_603231_50cm.tif --outfile=wald_dom_3.tif --calc="(A<=1)*0 + (A>1)*A" nodata 0?
@@ -143,7 +143,7 @@ for feature in layer:
 infiles = os.path.join(OUT_PATH, "buildings", "dom", "*.tif")
 outfile = os.path.join(OUT_PATH, "buildings", "dom", "buildings.vrt")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
-#os.system(cmd)
+os.system(cmd)
 
 infile = os.path.join(OUT_PATH, "buildings", "dom", "buildings.vrt")
 outfile = os.path.join(OUT_PATH, "buildings", "dom", "buildings_5m.tif")
@@ -152,18 +152,18 @@ cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
 cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
 cmd += " -wo NUM_THREADS=ALL_CPUS -s_srs epsg:21781 -t_srs epsg:21781"
 cmd += " " + infile + " " + outfile
-#os.system(cmd)
+os.system(cmd)
 
 cmd  = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest"
 cmd += " --config COMPRESS_OVERVIEW LZW --config GDAL_TIFF_OVR_BLOCKSIZE 512"
 cmd += " " + outfile + " 2 4 8 16 32 64 128"
-#os.system(cmd)
+os.system(cmd)
 
 #Buildings Hillshading
 infiles = os.path.join(OUT_PATH, "buildings", "hillshade", "*.tif")
 outfile = os.path.join(OUT_PATH, "buildings", "hillshade", "buildings.vrt")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
-#os.system(cmd)
+os.system(cmd)
 
 infile = os.path.join(OUT_PATH, "buildings", "hillshade", "buildings.vrt")
 outfile = os.path.join(OUT_PATH, "buildings", "hillshade", "buildings_5m.tif")
@@ -172,18 +172,19 @@ cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
 cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
 cmd += " -wo NUM_THREADS=ALL_CPUS -s_srs epsg:21781 -t_srs epsg:21781"
 cmd += " " + infile + " " + outfile
-#os.system(cmd)
+
+os.system(cmd)
 
 cmd  = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest"
 cmd += " --config COMPRESS_OVERVIEW LZW --config GDAL_TIFF_OVR_BLOCKSIZE 512"
 cmd += " " + outfile + " 2 4 8 16 32 64 128"
-#os.system(cmd)
+os.system(cmd)
 
 #Forest DOM
 infiles = os.path.join(OUT_PATH, "forest", "dom", "*.tif")
 outfile = os.path.join(OUT_PATH, "forest", "dom", "forest.vrt")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
-#os.system(cmd)
+os.system(cmd)
 
 infile = os.path.join(OUT_PATH, "forest", "dom", "forest.vrt")
 outfile = os.path.join(OUT_PATH, "forest", "dom", "forest_5m.tif")
@@ -192,7 +193,7 @@ cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
 cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
 cmd += " -wo NUM_THREADS=ALL_CPUS -s_srs epsg:21781 -t_srs epsg:21781"
 cmd += " " + infile + " " + outfile
-#os.system(cmd)
+os.system(cmd)
 
 cmd  = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest"
 cmd += " --config COMPRESS_OVERVIEW LZW --config GDAL_TIFF_OVR_BLOCKSIZE 512"
@@ -203,7 +204,7 @@ cmd += " " + outfile + " 2 4 8 16 32 64 128"
 infiles = os.path.join(OUT_PATH, "forest", "hillshade", "*.tif")
 outfile = os.path.join(OUT_PATH, "forest", "hillshade", "forest.vrt")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
-#os.system(cmd)
+os.system(cmd)
 
 infile = os.path.join(OUT_PATH, "forest", "hillshade", "forest.vrt")
 outfile = os.path.join(OUT_PATH, "forest", "hillshade", "forest_5m.tif")
@@ -212,9 +213,9 @@ cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
 cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
 cmd += " -wo NUM_THREADS=ALL_CPUS -s_srs epsg:21781 -t_srs epsg:21781"
 cmd += " " + infile + " " + outfile
-#os.system(cmd)
+os.system(cmd)
 
 cmd  = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest"
 cmd += " --config COMPRESS_OVERVIEW LZW --config GDAL_TIFF_OVR_BLOCKSIZE 512"
 cmd += " " + outfile + " 2 4 8 16 32 64 128"
-#os.system(cmd)
+os.system(cmd)
