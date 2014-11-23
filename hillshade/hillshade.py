@@ -7,8 +7,8 @@ import sys
 
 ogr.UseExceptions()
 
-VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dtm/dtm.vrt"
-OUTPATH = "/home/stefan/tmp/hillshade/dtm/"
+VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dom/dom.vrt"
+OUTPATH = "/home/stefan/tmp/hillshade/dom_60/"
 TMPPATH = "/tmp/"
 BUFFER = 10
 
@@ -39,7 +39,7 @@ for feature in layer:
 
     infile = outfileName
     outfile = os.path.join(TMPPATH, "tmp_" + infileName)
-    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 50 -az 270 -compute_edges " + infile + " " + outfile
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 60 -az 270 -compute_edges " + infile + " " + outfile
     os.system(cmd)
     #print cmd
     
@@ -58,12 +58,12 @@ for feature in layer:
     os.system(cmd)
 
 infiles = os.path.join(OUTPATH, "*.tif")
-outfile = os.path.join(OUTPATH, "dtm_relief.vrt")
+outfile = os.path.join(OUTPATH, "dom_relief.vrt")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
 os.system(cmd)
 
-infile = os.path.join(OUTPATH, "dtm_relief.vrt")
-outfile = os.path.join(OUTPATH, "dtm_relief_5m.tif")
+infile = os.path.join(OUTPATH, "dom_relief.vrt")
+outfile = os.path.join(OUTPATH, "dom_relief_5m.tif")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -tr 5.0 5.0 -of GTiff"
 cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
 cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
