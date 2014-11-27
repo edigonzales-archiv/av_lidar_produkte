@@ -7,10 +7,10 @@ import sys
 
 ogr.UseExceptions()
 
-VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dom/dom.vrt"
-OUTPATH = "/home/stefan/tmp/hillshade/dom_50/"
-TMPPATH = "/tmp/"
-BUFFER = 10
+VRT_ALT = "/opt/Geodaten/ch/so/kva/hoehen/2002/dom/grid/dom.vrt"
+VRT_NEU = "/opt/Geodaten/ch/so/kva/hoehen/2014/dom/dom.vrt" 
+OUT_PATH = "/home/stefan/tmp/change_detection/"
+TMP_PATH = "/tmp/"
 
 shp = ogr.Open("../tileindex/lidar2014_einzeln.shp")
 layer = shp.GetLayer(0)
