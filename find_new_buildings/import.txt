@@ -1,0 +1,1 @@
+raster2pgsql -d -s 21781 -I -C -M -F -r /opt/Geodaten/ch/so/kva/hoehen/differenzen/2014vs2002/dom/grid/50cm/*.tif -t 100x100 av_lidar_2014.diff_2014_2002 | psql -d rosebud2
