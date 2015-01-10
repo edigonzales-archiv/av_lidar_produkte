@@ -1,0 +1,8 @@
+CREATE SCHEMA av_orthofoto
+  AUTHORIZATION stefan;
+GRANT ALL ON SCHEMA av_orthofoto TO stefan;
+GRANT USAGE ON SCHEMA av_orthofoto TO mspublic;
+
+
+
+raster2pgsql -d -s 21781 -I -C -M -F -r /home/stefan/tmp/stereoids/ndvi/*.tif -t 100x100 av_orthofoto.ndvi_50cm | psql -d rosebud2

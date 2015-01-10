@@ -7,8 +7,8 @@ import sys
 
 ogr.UseExceptions()
 
-VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dom/grid/50cm/dom.vrt"
-OUTPATH = "/home/stefan/tmp/hillshade/dom"
+VRT = "/opt/Geodaten/ch/so/kva/hoehen/2014/dtm/grid/50cm/dtm.vrt"
+OUTPATH = "/home/stefan/tmp/hillshade/dtm/"
 TMPPATH = "/tmp/"
 BUFFER = 10
 
@@ -41,18 +41,18 @@ for feature in layer:
     os.system(cmd)
 
     infile = outfileName
-    outfile = os.path.join(TMPPATH, "tmp_" + infileName)
-    #cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 45 -az 315 -compute_edges " + infile + " " + outfile
+    outfile = os.path.join(TMPPATH, "tmp_1" + infileName)
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -alt 30 -az 315 -compute_edges " + infile + " " + outfile
     #cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem slope -compute_edges " + infile + " " + outfile
-    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -combined -alt 45 -az 315 -compute_edges " + infile + " " + outfile
+    #cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem hillshade -combined -alt 45 -az 315 -compute_edges " + infile + " " + outfile
     #print cmd
     os.system(cmd)
     
-    #infile = outfile
-    #outfile = os.path.join(TMPPATH, "tmp_1_" + infileName)
-    #cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem color-relief " + infile +  " ramp_1.txt " + outfile
+    infile = outfile
+    outfile = os.path.join(TMPPATH, "tmp_1_" + infileName)
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdaldem color-relief " + infile +  " ramp_1.txt " + outfile
     #print cmd
-    #os.system(cmd)
+    os.system(cmd)
     
     infile = outfile
     outfile = os.path.join(OUTPATH, infileName)
@@ -64,19 +64,19 @@ for feature in layer:
     os.system(cmd)
     
 
-    cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r nearest "
+    cmd = "/usr/local/gdal/gdal-dev/bin/gdaladdo -r average "
     cmd += "--config COMPRESS_OVERVIEW DEFLATE --config GDAL_TIFF_OVR_BLOCKSIZE 512 " 
     cmd += outfile + " 2 4 8 16 32 64 128"
     #print cmd
     os.system(cmd)
 
 infiles = os.path.join(OUTPATH, "*.tif")
-outfile = os.path.join(OUTPATH, "dom_kombiniert.vrt")
+outfile = os.path.join(OUTPATH, "dtm_kombiniert.vrt")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalbuildvrt " + outfile + " " + infiles 
 os.system(cmd)
 
-infile = os.path.join(OUTPATH, "dom_kombiniert.vrt")
-outfile = os.path.join(OUTPATH, "dom_kombiniert_5m.tif")
+infile = os.path.join(OUTPATH, "dtm_kombiniert.vrt")
+outfile = os.path.join(OUTPATH, "dtm_kombiniert_5m.tif")
 cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -tr 5.0 5.0 -of GTiff"
 cmd += " -co 'TILED=YES' -co 'PROFILE=GeoTIFF'  -co 'INTERLEAVE=PIXEL'"
 cmd += " -co 'COMPRESS=LZW' -co 'BLOCKXSIZE=512' -co 'BLOCKYSIZE=512'" 
