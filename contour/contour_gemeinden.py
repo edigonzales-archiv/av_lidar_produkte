@@ -10,10 +10,10 @@ ogr.UseExceptions()
 #GEMEINDEGRENZEN = "../data/gemeindegrenzen/gemeindegrenzen.shp"
 GEMEINDEGRENZEN = "../data/gemeindegrenzen_zh/gemeindegrenzen.shp"
 #VRT_DTM = "/opt/Geodaten/ch/so/kva/hoehen/2014/dtm/grid/50cm/dtm.vrt"
-VRT_DTM = "/home/stefan/Geodaten/ch/zh/are/hoehen/2014/dtm/grid/50cm/dtm2014.vrt"
-TILEINDEX_DTM = "/home/stefan/Geodaten/ch/zh/are/hoehen/2014/tileindex/dtm2014.shp"
-OUT_PATH = "/home/stefan/Geodaten/ch/zh/are/hoehen/2014/isohypsen/"
-TMP_PATH = "/tmp/contour_zh/"
+VRT_DTM = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/dtm/grid/50cm/dtm2014.vrt"
+TILEINDEX_DTM = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/tileindex/dtm2014.shp"
+OUT_PATH = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/isohypsen/"
+TMP_PATH = "/home/stefan/tmp/contour_zh/"
 BUFFER = 50
 
 #shp1 = ogr.Open(GEMEINDEGRENZEN)
@@ -24,6 +24,16 @@ for feature1 in layer1:
     gem_bfs = feature1.GetField('gem_bfs')
         
     print "Prozessiere BfS-Nr.: " + str(gem_bfs)
+    
+    file_name = os.path.join(OUT_PATH, "contour_" + str(int(gem_bfs)) + ".zip")
+    print file_name
+    if os.path.isfile(file_name):
+        print "Contours bereits vorhanden..."
+        continue
+        
+#    if gem_bfs <> 154:
+#        continue
+    
     geom1 = feature1.GetGeometryRef().Buffer(50)
     
     shp2 = ogr.Open(TILEINDEX_DTM)
@@ -52,8 +62,13 @@ for feature1 in layer1:
             maxX = int(env[1] + 0.001)
             maxY = int(env[3] + 0.001)
             
+#            if minX == 688000 and minY == 241000:
+#                print "foo"
+#            else:
+#                continue
+            
             outfile = os.path.join(TMP_PATH, "input.tif")
-            cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -overwrite -s_srs epsg:21781 -t_srs epsg:21781 -te" 
+            cmd = "gdalwarp -overwrite -s_srs epsg:21781 -t_srs epsg:21781 -te" 
             cmd += " " + str(minX - BUFFER) + " " +  str(minY - BUFFER) + " " +  str(maxX + BUFFER) + " " +  str(maxY + BUFFER)
             cmd += " -tr 0.5 0.5 -wo NUM_THREADS=ALL_CPUS -r bilinear "
             cmd += " " + VRT_DTM + " " + outfile;
@@ -63,7 +78,7 @@ for feature1 in layer1:
             infile = os.path.join(TMP_PATH, "input.tif")
             outfile = os.path.join(TMP_PATH, "output.tif")
             for i in range(10):
-                cmd = "/usr/local/gdal/gdal-dev/bin/gdalwarp -overwrite -s_srs epsg:21781 -t_srs epsg:21781"
+                cmd = "gdalwarp -overwrite -s_srs epsg:21781 -t_srs epsg:21781"
                 cmd += " -r cubicspline " + infile + " " + outfile
                 print cmd
                 os.system(cmd)
@@ -71,50 +86,59 @@ for feature1 in layer1:
 
             infile = os.path.join(TMP_PATH, "input.tif")
             outfile = os.path.join(TMP_PATH, "contour_tmp_1.shp")
-            cmd = "/usr/local/gdal/gdal-dev/bin/gdal_contour -b 1 -3d -a elev -i 1.0 " + infile + " " + outfile
+            cmd = "rm " + outfile
+            os.system(cmd)
+            
+            cmd = "gdal_contour -b 1 -3d -a elev -i 1.0 " + infile + " " + outfile
             print cmd
             os.system(cmd)
             os.system("rm " + infile)
     
             infile = GEMEINDEGRENZEN
             outfile = os.path.join(TMP_PATH, "tmp_gemeinde.shp")
-            cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -dialect SQLITE" 
+            cmd = "ogr2ogr -overwrite -dialect SQLITE" 
+            #cmd += " " + outfile + " " + infile + " -sql \"SELECT * FROM gemeindegrenzen WHERE gem_bfs = " + str(int(gem_bfs)) + "\""  
             cmd += " " + outfile + " " + infile + " -sql \"SELECT * FROM gemeindegrenzen WHERE gem_bfs = " + str(int(gem_bfs)) + "\""  
-            #cmd += " " + outfile + " " + infile + " -sql \"SELECT * FROM gemeindegrenzen_auswahl WHERE gem_bfs = " + str(int(gem_bfs)) + "\""  
             print cmd
             os.system(cmd)
-                        
+            
             clipfile = os.path.join(TMP_PATH, "tmp_gemeinde.shp")    
             infile = os.path.join(TMP_PATH, "contour_tmp_1.shp")
             outfile = os.path.join(TMP_PATH, "contour_tmp_2.shp")
-            #cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -skipfailures -where \"OGR_GEOMETRY='LineString'\" -clipsrc" 
-            cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -clipsrc" 
+            #cmd = "ogr2ogr -skipfailures -where \"OGR_GEOMETRY='LineString'\" -clipsrc" 
+            cmd = "ogr2ogr -overwrite -clipsrc" 
             cmd += " " + clipfile + " " + outfile + " " + infile
             print cmd
             os.system(cmd)       
-                   
+
             ## Eventuell Zusatzschritt, falls immer noch Probleme:
             ## Zuerst um ganz wenig groesseres Polygon clippen. 
             ## Aber nicht etwas was der Kachelgrösse entspricht, sonst
             ## gibts wieder Problem falls ein Vertexpunkt direkt auf einer
             ## Kachelkante liegt.
-            
             infile = os.path.join(TMP_PATH, "contour_tmp_2.shp")
-            outfile = os.path.join(TMP_PATH, "contour_" + str(int(gem_bfs)) + ".shp")
-            clip = geom2.ExportToWkt()
-            #cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -append -skipfailures -where \"OGR_GEOMETRY='LineString'\" -clipsrc '" + clip + "' " + outfile + " " + infile
-            cmd = "/usr/local/gdal/gdal-dev/bin/ogr2ogr -append -clipsrc '" + clip + "' " + outfile + " " + infile
+            outfile = os.path.join(TMP_PATH, "contour_tmp_3.shp")
+            clip_buffer = geom2.Buffer(0.14159, 1).ExportToWkt()
+            cmd = "ogr2ogr -append -clipsrc '" + clip_buffer + "' " + outfile + " " + infile            
             print cmd
             os.system(cmd)
-                
+
+            infile = os.path.join(TMP_PATH, "contour_tmp_3.shp")
+            outfile = os.path.join(TMP_PATH, "contour_" + str(int(gem_bfs)) + ".shp")
+            clip = geom2.ExportToWkt()
+            #cmd = "ogr2ogr -append -skipfailures -where \"OGR_GEOMETRY='LineString'\" -clipsrc '" + clip + "' " + outfile + " " + infile
+            cmd = "ogr2ogr -append -clipsrc '" + clip + "' " + outfile + " " + infile
+            print cmd
+            os.system(cmd)
+            
     infile = os.path.join(TMP_PATH, "contour_" + str(int(gem_bfs)) + ".shp")
-    cmd = "/usr/local/gdal/gdal-dev/bin/ogrinfo " + infile 
+    cmd = "ogrinfo " + infile 
     cmd += " -sql \"ALTER TABLE contour_" + str(int(gem_bfs)) 
     cmd += " ADD COLUMN bfsnr integer(10)\""
     print cmd
     os.system(cmd)
     
-    cmd = "/usr/local/gdal/gdal-dev/bin/ogrinfo " + infile 
+    cmd = "ogrinfo " + infile 
     cmd += " -dialect SQLITE -sql \"UPDATE contour_" + str(int(gem_bfs)) 
     cmd += " SET bfsnr = " + str(int(gem_bfs)) + "\""
     print cmd
@@ -126,9 +150,14 @@ for feature1 in layer1:
     cmd = "zip -j " + outfile + " " + infiles
     print cmd
     os.system(cmd)
- 
-# shp -> gpkg    
-#/usr/local/gdal/gdal-dev/bin/ogr2ogr -f GPKG contour_82.gpkg /vsizip/contour_82.zip 
+    
+    # shp -> gpkg    
+    infile = "/vsizip/" + outfile + ".zip"
+    outfile = os.path.join(OUT_PATH, "contour_" + str(int(gem_bfs)) + ".gpkg")
+    cmd = "ogr2ogr -f GPKG " + outfile + " " + infile 
+    #print cmd
+    #os.system(cmd)
+    
 
 
     
