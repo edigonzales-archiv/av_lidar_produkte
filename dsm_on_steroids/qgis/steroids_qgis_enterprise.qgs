@@ -1,0 +1,916 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="1.9.0-Master">
+    <title></title>
+    <mapcanvas>
+        <units>meters</units>
+        <extent>
+            <xmin>594523.877888</xmin>
+            <ymin>227439.718700</ymin>
+            <xmax>597863.238575</xmax>
+            <ymax>229229.182724</ymax>
+        </extent>
+        <projections>0</projections>
+        <destinationsrs>
+            <spatialrefsys>
+                <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                <srsid>1919</srsid>
+                <srid>21781</srid>
+                <authid>EPSG:21781</authid>
+                <description>CH1903 / LV03</description>
+                <projectionacronym>somerc</projectionacronym>
+                <ellipsoidacronym>bessel</ellipsoidacronym>
+                <geographicflag>false</geographicflag>
+            </spatialrefsys>
+        </destinationsrs>
+    </mapcanvas>
+    <legend updateDrawingOrder="true">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="EO" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="einzelobjekte__flaechenelement20141123180050999" visible="0"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="bestockt" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="bodenbedeckung__boflaeche20141123180035871" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Gebäude" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="bodenbedeckung__boflaeche20141123180002413" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Wasser" showFeatureCount="0">
+            <filegroup open="true" hidden="false">
+                <legendlayerfile isInOverview="0" layerid="bodenbedeckung__boflaeche20141123175509024" visible="1"/>
+            </filegroup>
+        </legendlayer>
+        <legendgroup open="true" checked="Qt::Checked" name="Relief">
+            <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="dom_relief_5m" showFeatureCount="0">
+                <filegroup open="false" hidden="false">
+                    <legendlayerfile isInOverview="0" layerid="dom_relief_5m20141123175222258" visible="1"/>
+                </filegroup>
+            </legendlayer>
+            <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="dom_relief" showFeatureCount="0">
+                <filegroup open="false" hidden="false">
+                    <legendlayerfile isInOverview="0" layerid="dom_relief20141123175222438" visible="1"/>
+                </filegroup>
+            </legendlayer>
+        </legendgroup>
+    </legend>
+    <projectlayers layercount="6">
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>bodenbedeckung__boflaeche20141123175509024</id>
+            <datasource>dbname='xanadu2' host=localhost port=5432 user='mspublic' password='mspublic' sslmode=disable key='ogc_fid' srid=21781 type=POLYGON table="av_mopublic"."bodenbedeckung__boflaeche" (geometrie) sql="art" IN ('Gewaesser_fliessendes','Gewaesser_stehendes','Wasserbecken')</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>Wasser</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                    <srsid>1919</srsid>
+                    <srid>21781</srid>
+                    <authid>EPSG:21781</authid>
+                    <description>CH1903 / LV03</description>
+                    <projectionacronym>somerc</projectionacronym>
+                    <ellipsoidacronym>bessel</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="0.8" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="158,184,207,204"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="no"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/blendMode" value="0"/>
+                <property key="labeling/bufferBlendMode" value="0"/>
+                <property key="labeling/bufferColorA" value="255"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferDraw" value="false"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferSizeMapUnitMaxScale" value="0"/>
+                <property key="labeling/bufferSizeMapUnitMinScale" value="0"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidInside" value="false"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/dataDefinedProperty0" value=""/>
+                <property key="labeling/dataDefinedProperty1" value=""/>
+                <property key="labeling/dataDefinedProperty10" value=""/>
+                <property key="labeling/dataDefinedProperty11" value=""/>
+                <property key="labeling/dataDefinedProperty12" value=""/>
+                <property key="labeling/dataDefinedProperty13" value=""/>
+                <property key="labeling/dataDefinedProperty14" value=""/>
+                <property key="labeling/dataDefinedProperty15" value=""/>
+                <property key="labeling/dataDefinedProperty16" value=""/>
+                <property key="labeling/dataDefinedProperty17" value=""/>
+                <property key="labeling/dataDefinedProperty18" value=""/>
+                <property key="labeling/dataDefinedProperty19" value=""/>
+                <property key="labeling/dataDefinedProperty2" value=""/>
+                <property key="labeling/dataDefinedProperty20" value=""/>
+                <property key="labeling/dataDefinedProperty21" value=""/>
+                <property key="labeling/dataDefinedProperty3" value=""/>
+                <property key="labeling/dataDefinedProperty4" value=""/>
+                <property key="labeling/dataDefinedProperty5" value=""/>
+                <property key="labeling/dataDefinedProperty6" value=""/>
+                <property key="labeling/dataDefinedProperty7" value=""/>
+                <property key="labeling/dataDefinedProperty8" value=""/>
+                <property key="labeling/dataDefinedProperty9" value=""/>
+                <property key="labeling/decimals" value="0"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/distMapUnitMaxScale" value="0"/>
+                <property key="labeling/distMapUnitMinScale" value="0"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontBold" value="true"/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="Ubuntu"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="11"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontSizeMapUnitMaxScale" value="0"/>
+                <property key="labeling/fontSizeMapUnitMinScale" value="0"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="50"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelOffsetMapUnitMaxScale" value="0"/>
+                <property key="labeling/labelOffsetMapUnitMinScale" value="0"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Normal"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="1"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="true"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/quadOffset" value="4"/>
+                <property key="labeling/repeatDistInMapUnits" value="false"/>
+                <property key="labeling/repeatDistance" value="0"/>
+                <property key="labeling/repeatDistanceMapUnitMaxScale" value="0"/>
+                <property key="labeling/repeatDistanceMapUnitMinScale" value="0"/>
+                <property key="labeling/repeatDistanceUnit" value="1"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="10000000"/>
+                <property key="labeling/scaleMin" value="1"/>
+                <property key="labeling/scaleVisibility" value="false"/>
+                <property key="labeling/shadowBlendMode" value="6"/>
+                <property key="labeling/shadowColorB" value="0"/>
+                <property key="labeling/shadowColorG" value="0"/>
+                <property key="labeling/shadowColorR" value="0"/>
+                <property key="labeling/shadowDraw" value="false"/>
+                <property key="labeling/shadowOffsetAngle" value="135"/>
+                <property key="labeling/shadowOffsetDist" value="1"/>
+                <property key="labeling/shadowOffsetGlobal" value="true"/>
+                <property key="labeling/shadowOffsetMapUnitMaxScale" value="0"/>
+                <property key="labeling/shadowOffsetMapUnitMinScale" value="0"/>
+                <property key="labeling/shadowOffsetUnits" value="1"/>
+                <property key="labeling/shadowRadius" value="1.5"/>
+                <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+                <property key="labeling/shadowRadiusMapUnitMaxScale" value="0"/>
+                <property key="labeling/shadowRadiusMapUnitMinScale" value="0"/>
+                <property key="labeling/shadowRadiusUnits" value="1"/>
+                <property key="labeling/shadowScale" value="100"/>
+                <property key="labeling/shadowTransparency" value="30"/>
+                <property key="labeling/shadowUnder" value="0"/>
+                <property key="labeling/shapeBlendMode" value="0"/>
+                <property key="labeling/shapeBorderColorA" value="255"/>
+                <property key="labeling/shapeBorderColorB" value="128"/>
+                <property key="labeling/shapeBorderColorG" value="128"/>
+                <property key="labeling/shapeBorderColorR" value="128"/>
+                <property key="labeling/shapeBorderWidth" value="0"/>
+                <property key="labeling/shapeBorderWidthMapUnitMaxScale" value="0"/>
+                <property key="labeling/shapeBorderWidthMapUnitMinScale" value="0"/>
+                <property key="labeling/shapeBorderWidthUnits" value="1"/>
+                <property key="labeling/shapeDraw" value="false"/>
+                <property key="labeling/shapeFillColorA" value="255"/>
+                <property key="labeling/shapeFillColorB" value="255"/>
+                <property key="labeling/shapeFillColorG" value="255"/>
+                <property key="labeling/shapeFillColorR" value="255"/>
+                <property key="labeling/shapeJoinStyle" value="64"/>
+                <property key="labeling/shapeOffsetMapUnitMaxScale" value="0"/>
+                <property key="labeling/shapeOffsetMapUnitMinScale" value="0"/>
+                <property key="labeling/shapeOffsetUnits" value="1"/>
+                <property key="labeling/shapeOffsetX" value="0"/>
+                <property key="labeling/shapeOffsetY" value="0"/>
+                <property key="labeling/shapeRadiiMapUnitMaxScale" value="0"/>
+                <property key="labeling/shapeRadiiMapUnitMinScale" value="0"/>
+                <property key="labeling/shapeRadiiUnits" value="1"/>
+                <property key="labeling/shapeRadiiX" value="0"/>
+                <property key="labeling/shapeRadiiY" value="0"/>
+                <property key="labeling/shapeRotation" value="0"/>
+                <property key="labeling/shapeRotationType" value="0"/>
+                <property key="labeling/shapeSVGFile" value=""/>
+                <property key="labeling/shapeSizeMapUnitMaxScale" value="0"/>
+                <property key="labeling/shapeSizeMapUnitMinScale" value="0"/>
+                <property key="labeling/shapeSizeType" value="0"/>
+                <property key="labeling/shapeSizeUnits" value="1"/>
+                <property key="labeling/shapeSizeX" value="0"/>
+                <property key="labeling/shapeSizeY" value="0"/>
+                <property key="labeling/shapeTransparency" value="0"/>
+                <property key="labeling/shapeType" value="0"/>
+                <property key="labeling/textColorA" value="255"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/xQuadOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+                <property key="labeling/yQuadOffset" value="0"/>
+            </customproperties>
+            <displayfield>tid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Ubuntu"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="art"/>
+                <edittype type="0" name="bfsnr"/>
+                <edittype type="0" name="gwr_egid"/>
+                <edittype type="0" name="ogc_fid"/>
+                <edittype type="0" name="qualitaets"/>
+                <edittype type="0" name="qualitaetsstandard"/>
+                <edittype type="0" name="stand_am"/>
+                <edittype type="0" name="tid"/>
+            </edittypes>
+            <editorlayout>generatedlayout</editorlayout>
+            <editform>.</editform>
+            <editforminit></editforminit>
+            <annotationform>.</annotationform>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>bodenbedeckung__boflaeche20141123180002413</id>
+            <datasource>dbname='xanadu2' host=localhost port=5432 user='mspublic' password='mspublic' sslmode=disable key='ogc_fid' srid=21781 type=POLYGON table="av_mopublic"."bodenbedeckung__boflaeche" (geometrie) sql="art" = 'Gebaeude'</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>Gebäude</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                    <srsid>1919</srsid>
+                    <srid>21781</srid>
+                    <authid>EPSG:21781</authid>
+                    <description>CH1903 / LV03</description>
+                    <projectionacronym>somerc</projectionacronym>
+                    <ellipsoidacronym>bessel</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="0.639216" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="187,95,98,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="no"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/dataDefinedProperty0" value=""/>
+                <property key="labeling/dataDefinedProperty1" value=""/>
+                <property key="labeling/dataDefinedProperty10" value=""/>
+                <property key="labeling/dataDefinedProperty11" value=""/>
+                <property key="labeling/dataDefinedProperty12" value=""/>
+                <property key="labeling/dataDefinedProperty13" value=""/>
+                <property key="labeling/dataDefinedProperty14" value=""/>
+                <property key="labeling/dataDefinedProperty15" value=""/>
+                <property key="labeling/dataDefinedProperty16" value=""/>
+                <property key="labeling/dataDefinedProperty17" value=""/>
+                <property key="labeling/dataDefinedProperty18" value=""/>
+                <property key="labeling/dataDefinedProperty19" value=""/>
+                <property key="labeling/dataDefinedProperty2" value=""/>
+                <property key="labeling/dataDefinedProperty20" value=""/>
+                <property key="labeling/dataDefinedProperty3" value=""/>
+                <property key="labeling/dataDefinedProperty4" value=""/>
+                <property key="labeling/dataDefinedProperty5" value=""/>
+                <property key="labeling/dataDefinedProperty6" value=""/>
+                <property key="labeling/dataDefinedProperty7" value=""/>
+                <property key="labeling/dataDefinedProperty8" value=""/>
+                <property key="labeling/dataDefinedProperty9" value=""/>
+                <property key="labeling/decimals" value="0"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="Liberation Sans"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="9"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="50"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Normal"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="true"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="0"/>
+                <property key="labeling/scaleMin" value="0"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/xQuadOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+                <property key="labeling/yQuadOffset" value="0"/>
+            </customproperties>
+            <displayfield>ogc_fid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Liberation Sans"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="art"/>
+                <edittype type="0" name="bfsnr"/>
+                <edittype type="0" name="gwr_egid"/>
+                <edittype type="0" name="ogc_fid"/>
+                <edittype type="0" name="qualitaetsstandard"/>
+                <edittype type="0" name="stand_am"/>
+                <edittype type="0" name="tid"/>
+            </edittypes>
+            <editorlayout>generatedlayout</editorlayout>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>bodenbedeckung__boflaeche20141123180035871</id>
+            <datasource>dbname='xanadu2' host=localhost port=5432 user='mspublic' password='mspublic' sslmode=disable key='ogc_fid' srid=21781 type=POLYGON table="av_mopublic"."bodenbedeckung__boflaeche" (geometrie) sql="art" IN ('geschlossener_Wald','uebrige_bestockte')</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>bestockt</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                    <srsid>1919</srsid>
+                    <srid>21781</srid>
+                    <authid>EPSG:21781</authid>
+                    <description>CH1903 / LV03</description>
+                    <projectionacronym>somerc</projectionacronym>
+                    <ellipsoidacronym>bessel</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="0.4" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="142,183,110,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="no"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/dataDefinedProperty0" value=""/>
+                <property key="labeling/dataDefinedProperty1" value=""/>
+                <property key="labeling/dataDefinedProperty10" value=""/>
+                <property key="labeling/dataDefinedProperty11" value=""/>
+                <property key="labeling/dataDefinedProperty12" value=""/>
+                <property key="labeling/dataDefinedProperty13" value=""/>
+                <property key="labeling/dataDefinedProperty14" value=""/>
+                <property key="labeling/dataDefinedProperty15" value=""/>
+                <property key="labeling/dataDefinedProperty16" value=""/>
+                <property key="labeling/dataDefinedProperty17" value=""/>
+                <property key="labeling/dataDefinedProperty18" value=""/>
+                <property key="labeling/dataDefinedProperty19" value=""/>
+                <property key="labeling/dataDefinedProperty2" value=""/>
+                <property key="labeling/dataDefinedProperty20" value=""/>
+                <property key="labeling/dataDefinedProperty3" value=""/>
+                <property key="labeling/dataDefinedProperty4" value=""/>
+                <property key="labeling/dataDefinedProperty5" value=""/>
+                <property key="labeling/dataDefinedProperty6" value=""/>
+                <property key="labeling/dataDefinedProperty7" value=""/>
+                <property key="labeling/dataDefinedProperty8" value=""/>
+                <property key="labeling/dataDefinedProperty9" value=""/>
+                <property key="labeling/decimals" value="0"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="Liberation Sans"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="9"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="50"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Normal"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="true"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="0"/>
+                <property key="labeling/scaleMin" value="0"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/xQuadOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+                <property key="labeling/yQuadOffset" value="0"/>
+            </customproperties>
+            <displayfield>ogc_fid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Liberation Sans"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="art"/>
+                <edittype type="0" name="bfsnr"/>
+                <edittype type="0" name="gwr_egid"/>
+                <edittype type="0" name="ogc_fid"/>
+                <edittype type="0" name="qualitaetsstandard"/>
+                <edittype type="0" name="stand_am"/>
+                <edittype type="0" name="tid"/>
+            </edittypes>
+            <editorlayout>generatedlayout</editorlayout>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="25000" type="raster" hasScaleBasedVisibilityFlag="1">
+            <id>dom_relief20141123175222438</id>
+            <datasource>/opt/Geodaten/ch/so/kva/hoehen/2014/dom/relief_60/dom_relief.vrt</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>dom_relief</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                    <srsid>1919</srsid>
+                    <srid>21781</srid>
+                    <authid>EPSG:21781</authid>
+                    <description>CH1903 / LV03</description>
+                    <projectionacronym>somerc</projectionacronym>
+                    <ellipsoidacronym>bessel</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <customproperties/>
+            <provider>gdal</provider>
+            <rasterrenderer opacity="1" alphaBand="-1" classificationMax="241.055" classificationMinMaxOrigin="CumulativeCutFullExtentEstimated" band="1" classificationMin="0.996094" type="singlebandpseudocolor">
+                <rasterTransparency/>
+                <rastershader>
+                    <colorrampshader colorRampType="INTERPOLATED" clip="0">
+                        <item value="0" label="0" color="#010000"/>
+                        <item value="60" label="60" color="#484035"/>
+                        <item value="92" label="92" color="#554840"/>
+                        <item value="105" label="105" color="#66635c"/>
+                        <item value="197" label="197" color="#ccc4c1"/>
+                        <item value="199" label="199" color="#d1cec9"/>
+                        <item value="231" label="231" color="#f0efeb"/>
+                        <item value="240" label="240" color="#fffef8"/>
+                        <item value="245" label="245" color="#fffefd"/>
+                        <item value="255" label="255" color="#ffffff"/>
+                    </colorrampshader>
+                </rastershader>
+            </rasterrenderer>
+            <rasterresampler maxOversampling="4" zoomedOutResampler="bilinear"/>
+        </maplayer>
+        <maplayer minimumScale="25000" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="1">
+            <id>dom_relief_5m20141123175222258</id>
+            <datasource>/opt/Geodaten/ch/so/kva/hoehen/2014/dom/relief_60/dom_relief_5m.tif</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>dom_relief_5m</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                    <srsid>1919</srsid>
+                    <srid>21781</srid>
+                    <authid>EPSG:21781</authid>
+                    <description>CH1903 / LV03</description>
+                    <projectionacronym>somerc</projectionacronym>
+                    <ellipsoidacronym>bessel</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <customproperties/>
+            <provider>gdal</provider>
+            <rasterrenderer opacity="1" alphaBand="-1" classificationMax="241.055" classificationMinMaxOrigin="CumulativeCutFullExtentEstimated" band="1" classificationMin="0.996094" type="singlebandpseudocolor">
+                <rasterTransparency/>
+                <rastershader>
+                    <colorrampshader colorRampType="INTERPOLATED" clip="0">
+                        <item value="0" label="0" color="#010000"/>
+                        <item value="60" label="60" color="#484035"/>
+                        <item value="92" label="92" color="#554840"/>
+                        <item value="105" label="105" color="#66635c"/>
+                        <item value="197" label="197" color="#ccc4c1"/>
+                        <item value="199" label="199" color="#d1cec9"/>
+                        <item value="231" label="231" color="#f0efeb"/>
+                        <item value="240" label="240" color="#fffef8"/>
+                        <item value="245" label="245" color="#fffefd"/>
+                        <item value="255" label="255" color="#ffffff"/>
+                    </colorrampshader>
+                </rastershader>
+            </rasterrenderer>
+            <rasterresampler maxOversampling="8" zoomedOutResampler="bilinear"/>
+        </maplayer>
+        <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0">
+            <id>einzelobjekte__flaechenelement20141123180050999</id>
+            <datasource>dbname='xanadu2' host=localhost port=5432 user='mspublic' password='mspublic' sslmode=disable key='ogc_fid' srid=21781 type=POLYGON table="av_mopublic"."einzelobjekte__flaechenelement" (geometrie) sql="typ" IN ('Unterstand','uebriger_Gebaeudeteil')</datasource>
+            <title></title>
+            <abstract></abstract>
+            <layername>EO</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=600000 +y_0=200000 +ellps=bessel +towgs84=674.4,15.1,405.3,0,0,0,0 +units=m +no_defs</proj4>
+                    <srsid>1919</srsid>
+                    <srid>21781</srid>
+                    <authid>EPSG:21781</authid>
+                    <description>CH1903 / LV03</description>
+                    <projectionacronym>somerc</projectionacronym>
+                    <ellipsoidacronym>bessel</ellipsoidacronym>
+                    <geographicflag>false</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="UTF-8">postgres</provider>
+            <vectorjoins/>
+            <renderer-v2 symbollevels="0" type="singleSymbol">
+                <symbols>
+                    <symbol outputUnit="MM" alpha="1" type="fill" name="0">
+                        <layer pass="0" class="SimpleFill" locked="0">
+                            <prop k="color" v="87,119,128,255"/>
+                            <prop k="color_border" v="0,0,0,255"/>
+                            <prop k="offset" v="0,0"/>
+                            <prop k="style" v="solid"/>
+                            <prop k="style_border" v="solid"/>
+                            <prop k="width_border" v="0.26"/>
+                        </layer>
+                    </symbol>
+                </symbols>
+                <rotation field=""/>
+                <sizescale field="" scalemethod="area"/>
+            </renderer-v2>
+            <customproperties>
+                <property key="labeling" value="pal"/>
+                <property key="labeling/addDirectionSymbol" value="false"/>
+                <property key="labeling/angleOffset" value="0"/>
+                <property key="labeling/bufferColorB" value="255"/>
+                <property key="labeling/bufferColorG" value="255"/>
+                <property key="labeling/bufferColorR" value="255"/>
+                <property key="labeling/bufferJoinStyle" value="64"/>
+                <property key="labeling/bufferNoFill" value="false"/>
+                <property key="labeling/bufferSize" value="1"/>
+                <property key="labeling/bufferSizeInMapUnits" value="false"/>
+                <property key="labeling/bufferTransp" value="0"/>
+                <property key="labeling/centroidWhole" value="false"/>
+                <property key="labeling/dataDefinedProperty0" value=""/>
+                <property key="labeling/dataDefinedProperty1" value=""/>
+                <property key="labeling/dataDefinedProperty10" value=""/>
+                <property key="labeling/dataDefinedProperty11" value=""/>
+                <property key="labeling/dataDefinedProperty12" value=""/>
+                <property key="labeling/dataDefinedProperty13" value=""/>
+                <property key="labeling/dataDefinedProperty14" value=""/>
+                <property key="labeling/dataDefinedProperty15" value=""/>
+                <property key="labeling/dataDefinedProperty16" value=""/>
+                <property key="labeling/dataDefinedProperty17" value=""/>
+                <property key="labeling/dataDefinedProperty18" value=""/>
+                <property key="labeling/dataDefinedProperty19" value=""/>
+                <property key="labeling/dataDefinedProperty2" value=""/>
+                <property key="labeling/dataDefinedProperty20" value=""/>
+                <property key="labeling/dataDefinedProperty3" value=""/>
+                <property key="labeling/dataDefinedProperty4" value=""/>
+                <property key="labeling/dataDefinedProperty5" value=""/>
+                <property key="labeling/dataDefinedProperty6" value=""/>
+                <property key="labeling/dataDefinedProperty7" value=""/>
+                <property key="labeling/dataDefinedProperty8" value=""/>
+                <property key="labeling/dataDefinedProperty9" value=""/>
+                <property key="labeling/decimals" value="0"/>
+                <property key="labeling/displayAll" value="false"/>
+                <property key="labeling/dist" value="0"/>
+                <property key="labeling/distInMapUnits" value="false"/>
+                <property key="labeling/enabled" value="false"/>
+                <property key="labeling/fieldName" value=""/>
+                <property key="labeling/fontCapitals" value="0"/>
+                <property key="labeling/fontFamily" value="Liberation Sans"/>
+                <property key="labeling/fontItalic" value="false"/>
+                <property key="labeling/fontLetterSpacing" value="0"/>
+                <property key="labeling/fontLimitPixelSize" value="false"/>
+                <property key="labeling/fontMaxPixelSize" value="10000"/>
+                <property key="labeling/fontMinPixelSize" value="3"/>
+                <property key="labeling/fontSize" value="9"/>
+                <property key="labeling/fontSizeInMapUnits" value="false"/>
+                <property key="labeling/fontStrikeout" value="false"/>
+                <property key="labeling/fontUnderline" value="false"/>
+                <property key="labeling/fontWeight" value="50"/>
+                <property key="labeling/fontWordSpacing" value="0"/>
+                <property key="labeling/formatNumbers" value="false"/>
+                <property key="labeling/isExpression" value="false"/>
+                <property key="labeling/labelOffsetInMapUnits" value="true"/>
+                <property key="labeling/labelPerPart" value="false"/>
+                <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+                <property key="labeling/limitNumLabels" value="false"/>
+                <property key="labeling/maxCurvedCharAngleIn" value="20"/>
+                <property key="labeling/maxCurvedCharAngleOut" value="-20"/>
+                <property key="labeling/maxNumLabels" value="2000"/>
+                <property key="labeling/mergeLines" value="false"/>
+                <property key="labeling/minFeatureSize" value="0"/>
+                <property key="labeling/multilineAlign" value="0"/>
+                <property key="labeling/multilineHeight" value="1"/>
+                <property key="labeling/namedStyle" value="Normal"/>
+                <property key="labeling/obstacle" value="true"/>
+                <property key="labeling/placeDirectionSymbol" value="0"/>
+                <property key="labeling/placement" value="0"/>
+                <property key="labeling/placementFlags" value="0"/>
+                <property key="labeling/plussign" value="true"/>
+                <property key="labeling/preserveRotation" value="true"/>
+                <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+                <property key="labeling/priority" value="5"/>
+                <property key="labeling/reverseDirectionSymbol" value="false"/>
+                <property key="labeling/rightDirectionSymbol" value=">"/>
+                <property key="labeling/scaleMax" value="0"/>
+                <property key="labeling/scaleMin" value="0"/>
+                <property key="labeling/textColorB" value="0"/>
+                <property key="labeling/textColorG" value="0"/>
+                <property key="labeling/textColorR" value="0"/>
+                <property key="labeling/textTransp" value="0"/>
+                <property key="labeling/upsidedownLabels" value="0"/>
+                <property key="labeling/wrapChar" value=""/>
+                <property key="labeling/xOffset" value="0"/>
+                <property key="labeling/xQuadOffset" value="0"/>
+                <property key="labeling/yOffset" value="0"/>
+                <property key="labeling/yQuadOffset" value="0"/>
+            </customproperties>
+            <displayfield>ogc_fid</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Liberation Sans"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
+            <edittypes>
+                <edittype type="0" name="bfsnr"/>
+                <edittype type="0" name="gueltigkeit"/>
+                <edittype type="0" name="gwr_egid"/>
+                <edittype type="0" name="ogc_fid"/>
+                <edittype type="0" name="qualitaetsstandard"/>
+                <edittype type="0" name="stand_am"/>
+                <edittype type="0" name="tid"/>
+                <edittype type="0" name="typ"/>
+            </edittypes>
+            <editorlayout>generatedlayout</editorlayout>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <excludeAttributesWMS/>
+            <excludeAttributesWFS/>
+            <attributeactions/>
+        </maplayer>
+    </projectlayers>
+    <properties>
+        <SpatialRefSys>
+            <ProjectCrs type="QString">EPSG:21781</ProjectCrs>
+            <ProjectCRSID type="int">1919</ProjectCRSID>
+        </SpatialRefSys>
+        <Paths>
+            <Absolute type="bool">false</Absolute>
+        </Paths>
+        <Gui>
+            <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+            <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+            <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+            <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+            <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+            <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+            <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+        </Gui>
+        <Digitizing>
+            <LayerSnappingList type="QStringList"/>
+            <LayerSnappingEnabledList type="QStringList"/>
+            <AvoidIntersectionsList type="QStringList"/>
+            <LayerSnappingToleranceUnitList type="QStringList"/>
+            <LayerSnapToList type="QStringList"/>
+            <LayerSnappingToleranceList type="QStringList"/>
+        </Digitizing>
+        <PositionPrecision>
+            <DecimalPlaces type="int">2</DecimalPlaces>
+            <Automatic type="bool">true</Automatic>
+        </PositionPrecision>
+    </properties>
+</qgis>
