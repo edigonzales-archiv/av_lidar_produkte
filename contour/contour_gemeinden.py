@@ -31,8 +31,9 @@ for feature1 in layer1:
         print "Contours bereits vorhanden..."
         continue
         
-#    if gem_bfs <> 154:
-#        continue
+        
+    if gem_bfs <> 117:
+        continue
     
     geom1 = feature1.GetGeometryRef().Buffer(50)
     
@@ -51,10 +52,13 @@ for feature1 in layer1:
     
     for feature2 in layer2:
         geom2 = feature2.GetGeometryRef()
+        infileName = feature2.GetField('location')
+        if infileName <> "7070_2400.tif":
+            continue        
 
         if geom2.Intersects(geom1): 
             infileName = feature2.GetField('location')
-            print "DTM-File: " + infileName
+            print "************** DTM-File: " + infileName
             
             env = geom2.GetEnvelope()
             minX = int(env[0] + 0.001)
@@ -118,7 +122,7 @@ for feature1 in layer1:
             ## Kachelkante liegt.
             infile = os.path.join(TMP_PATH, "contour_tmp_2.shp")
             outfile = os.path.join(TMP_PATH, "contour_tmp_3.shp")
-            clip_buffer = geom2.Buffer(0.14159, 1).ExportToWkt()
+            clip_buffer = geom2.Buffer(1.001, 1).ExportToWkt()
             cmd = "ogr2ogr -append -clipsrc '" + clip_buffer + "' " + outfile + " " + infile            
             print cmd
             os.system(cmd)
