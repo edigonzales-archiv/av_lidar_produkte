@@ -30,10 +30,9 @@ for feature1 in layer1:
     if os.path.isfile(file_name):
         print "Contours bereits vorhanden..."
         continue
-        
-        
-    if gem_bfs <> 117:
-        continue
+    
+#    if gem_bfs <> 117:
+#        continue
     
     geom1 = feature1.GetGeometryRef().Buffer(50)
     
@@ -52,9 +51,9 @@ for feature1 in layer1:
     
     for feature2 in layer2:
         geom2 = feature2.GetGeometryRef()
-        infileName = feature2.GetField('location')
-        if infileName <> "7070_2400.tif":
-            continue        
+#        infileName = feature2.GetField('location')
+#        if infileName <> "7070_2400.tif":
+#            continue        
 
         if geom2.Intersects(geom1): 
             infileName = feature2.GetField('location')
@@ -65,12 +64,7 @@ for feature1 in layer1:
             minY = int(env[2] + 0.001)
             maxX = int(env[1] + 0.001)
             maxY = int(env[3] + 0.001)
-            
-#            if minX == 688000 and minY == 241000:
-#                print "foo"
-#            else:
-#                continue
-            
+    
             outfile = os.path.join(TMP_PATH, "input.tif")
             cmd = "gdalwarp -overwrite -s_srs epsg:21781 -t_srs epsg:21781 -te" 
             cmd += " " + str(minX - BUFFER) + " " +  str(minY - BUFFER) + " " +  str(maxX + BUFFER) + " " +  str(maxY + BUFFER)
@@ -109,29 +103,38 @@ for feature1 in layer1:
             clipfile = os.path.join(TMP_PATH, "tmp_gemeinde.shp")    
             infile = os.path.join(TMP_PATH, "contour_tmp_1.shp")
             outfile = os.path.join(TMP_PATH, "contour_tmp_2.shp")
-            #cmd = "ogr2ogr -skipfailures -where \"OGR_GEOMETRY='LineString'\" -clipsrc" 
             cmd = "ogr2ogr -overwrite -clipsrc" 
             cmd += " " + clipfile + " " + outfile + " " + infile
             print cmd
             os.system(cmd)       
 
-            ## Eventuell Zusatzschritt, falls immer noch Probleme:
-            ## Zuerst um ganz wenig groesseres Polygon clippen. 
-            ## Aber nicht etwas was der Kachelgrösse entspricht, sonst
-            ## gibts wieder Problem falls ein Vertexpunkt direkt auf einer
-            ## Kachelkante liegt.
+            ## Probleme gibts, wenn ein Vertexpunkt genau auf der Schnittkante liegt.
+            ## Daraus entstehen GeometryCollections. Diese müssen jetzt bisschen 
+            ## fricklig auseinandergepfrimelt werden.
+            ## Geht wahrscheinlich eleganter mit GDAL >= 2.0 (-dialect INDIRECT_SQLITE)
             infile = os.path.join(TMP_PATH, "contour_tmp_2.shp")
-            outfile = os.path.join(TMP_PATH, "contour_tmp_3.shp")
-            clip_buffer = geom2.Buffer(1.001, 1).ExportToWkt()
-            cmd = "ogr2ogr -append -clipsrc '" + clip_buffer + "' " + outfile + " " + infile            
+            outfile = os.path.join(TMP_PATH, "contour_tmp_3.gpkg")
+            cmd = "ogr2ogr -overwrite -f GPKG " + outfile + " " + infile
             print cmd
             os.system(cmd)
-
-            infile = os.path.join(TMP_PATH, "contour_tmp_3.shp")
+            
+            infile = os.path.join(TMP_PATH, "contour_tmp_3.gpkg")
+            outfile = os.path.join(TMP_PATH, "contour_tmp_4.gpkg")
+            clip = geom2.ExportToWkt()            
+            cmd = "ogr2ogr -overwrite -clipsrc '" + clip + "' -f GPKG " + outfile + " " + infile
+            print cmd
+            os.system(cmd)
+            
+            infile = os.path.join(TMP_PATH, "contour_tmp_4.gpkg")
+            outfile = os.path.join(TMP_PATH, "contour_tmp_5.gpkg")
+            cmd = "ogr2ogr -overwrite -explodecollections -f GPKG " + outfile + " "  + infile
+            print cmd
+            os.system(cmd)
+            
+            infile = os.path.join(TMP_PATH, "contour_tmp_5.gpkg")
             outfile = os.path.join(TMP_PATH, "contour_" + str(int(gem_bfs)) + ".shp")
             clip = geom2.ExportToWkt()
-            #cmd = "ogr2ogr -append -skipfailures -where \"OGR_GEOMETRY='LineString'\" -clipsrc '" + clip + "' " + outfile + " " + infile
-            cmd = "ogr2ogr -append -clipsrc '" + clip + "' " + outfile + " " + infile
+            cmd = "ogr2ogr -nlt LINESTRING25D -skipfailures -append " + outfile + " " + infile
             print cmd
             os.system(cmd)
             
