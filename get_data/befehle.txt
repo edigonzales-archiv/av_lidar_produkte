@@ -1,0 +1,1 @@
+wget -r --no-parent http://maps.zh.ch/download/hoehen/2014/dtm/tif/
