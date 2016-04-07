@@ -10,9 +10,11 @@ ogr.UseExceptions()
 #GEMEINDEGRENZEN = "../data/gemeindegrenzen/gemeindegrenzen.shp"
 GEMEINDEGRENZEN = "../data/gemeindegrenzen_zh/gemeindegrenzen.shp"
 #VRT_DTM = "/opt/Geodaten/ch/so/kva/hoehen/2014/dtm/grid/50cm/dtm.vrt"
-VRT_DTM = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/dtm/grid/50cm/dtm2014.vrt"
-TILEINDEX_DTM = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/tileindex/dtm2014.shp"
-OUT_PATH = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/isohypsen/"
+#VRT_DTM = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/dtm/grid/50cm/dtm2014.vrt"
+VRT_DTM = "/home/stefan/tmp/dtm-zh/dtm2014.vrt"
+#TILEINDEX_DTM = "/mnt/mr_candie_nas/Geodaten/ch/zh/are/hoehen/2014/tileindex/dtm2014.shp"
+TILEINDEX_DTM = "/home/stefan/tmp/dtm-zh/dtm2014.shp"
+OUT_PATH = "/home/stefan/tmp/isohypsen/"
 TMP_PATH = "/home/stefan/tmp/contour_zh/"
 BUFFER = 50
 
@@ -59,6 +61,9 @@ for feature1 in layer1:
             infileName = feature2.GetField('location')
             print "************** DTM-File: " + infileName
             
+            #if infileName <> "6800_2480.tif":
+			#	continue
+            
             env = geom2.GetEnvelope()
             minX = int(env[0] + 0.001)
             minY = int(env[2] + 0.001)
@@ -82,15 +87,28 @@ for feature1 in layer1:
                 os.system(cmd)
                 os.system("cp " + outfile + " " + infile)
 
+            #sys.exit(1)
+            
             infile = os.path.join(TMP_PATH, "input.tif")
+            outfile = os.path.join(TMP_PATH, "filled_input.tif")
+            cmd = "gdal_fillnodata.py -md 5000 -si 3 " + infile + " " + outfile
+            print cmd
+            os.system(cmd)
+
+            #infile = os.path.join(TMP_PATH, "input.tif")
+            infile = os.path.join(TMP_PATH, "filled_input.tif")
             outfile = os.path.join(TMP_PATH, "contour_tmp_1.shp")
             cmd = "rm " + outfile
             os.system(cmd)
             
+            #sys.exit(1)
+                   
             cmd = "gdal_contour -b 1 -3d -a elev -i 1.0 " + infile + " " + outfile
             print cmd
             os.system(cmd)
             os.system("rm " + infile)
+            
+            #sys.exit(1)
     
             infile = GEMEINDEGRENZEN
             outfile = os.path.join(TMP_PATH, "tmp_gemeinde.shp")
@@ -157,6 +175,8 @@ for feature1 in layer1:
     cmd = "zip -j " + outfile + " " + infiles
     print cmd
     os.system(cmd)
+    
+    sys.exit(1)
     
     # shp -> gpkg    
     infile = "/vsizip/" + outfile + ".zip"
