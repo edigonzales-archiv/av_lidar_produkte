@@ -176,7 +176,7 @@ for feature1 in layer1:
     print cmd
     os.system(cmd)
     
-    sys.exit(1)
+    #sys.exit(1)
     
     # shp -> gpkg    
     infile = "/vsizip/" + outfile + ".zip"
